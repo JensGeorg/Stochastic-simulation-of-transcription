@@ -5,3 +5,6 @@ Various aspects of transcription can be specified.
 
 ## Expression of a 1000nt RNA
 
+```
+source("simulate.r")
+´´´
