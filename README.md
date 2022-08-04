@@ -32,7 +32,7 @@ dat<-simulate(timesteps=total_time,
 ```
 <p float="center">
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="500"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/co_transcriptional_1000nt_with\ analyt.png" width="500"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/co_transcriptional_1000nt_with analyt.png" width="500"/>
 </p>
 
 
