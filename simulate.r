@@ -7,6 +7,7 @@
 
 #timesteps: Duration of simulation in seconds
 #rif_time: Timepoint were initiation of synthesis stops
+#start_pos: transcriptional start site(s) 
 #rna_length: Length of the simulated transcriptional unit [nucleotides]
 #probe_pos: Positions in the transcript were the RNA number is stored for each timestep
 #pol_freq: initiation rate(s) [Initiations/s] 
