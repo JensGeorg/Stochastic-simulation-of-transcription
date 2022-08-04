@@ -110,11 +110,9 @@ ladd_ti<-function(x, nt=1){ #nt = number of nt added each step
 
 
 decay_fun<-function(x, nt=500){
-	if(from_start=="co"){
-		if(length(x)>0){
-			nt<-min(length(x),nt)
-			x<-x[nt:length(x)]
-		}
+	if(length(x)>0){
+		nt<-min(length(x),nt)
+		x<-x[nt:length(x)]
 	}
 	x
 }
