@@ -116,3 +116,55 @@ for(i in 1:length(pos)){
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans_with_analyt.png" width="500"/>
 </p>
 
+### Transcriptional interference by the collision of sense and antisense transcription
+For this scenario the transcription of a 3000nt sense RNA and an asRNA starting at position 2000 in reverse orientation is simulated.
+
+```
+source("simulate.r")
+pol_freq=0.7 #[initiations/s]
+ti_anti_pol_freq=0.7 #[initiations/s]
+deg=0.01 #[1/s]
+ti_anti_tss=2000
+ti_anti_deg=0.01 #[1/s]
+ti_prob_sense=0.29
+start_pos=1
+pos=c(1,seq(200,3000,500),seq(1900,1990,10)) #sample positions [nt]
+pol_speed=10 #[nt/s]
+rna_length=3000 #length of transcript [nt]
+
+rif_time=steady_state*10  # time when transcription initiation stops
+total_time=rif_time + 8 * log(2)/deg 
+
+dat<-simulate(timesteps=total_time,
+              rif_time=rif_time,
+              pol_freq=pol_freq,
+              ti_anti_pol_freq=ti_anti_pol_freq,
+              ti_anti_deg=ti_anti_deg,
+              deg=deg,
+              ti_prob_sense=ti_prob_sense,
+              start_pos=start_pos,
+              probe_pos=pos,
+              pol_speed=pol_speed,
+              rna_length=rna_length,
+              ti_anti_usage=TRUE,
+              mode_of_decay="co")
+
+dat_sense<-dat[[1]]
+dat_anti<-dat[[2]]
+
+# visualization of the decay curves 
+plot(1,1,type="n", ylim=c(0,max(unlist(dat_sense))), xlim=c(rif_time, total_time), xlab="molecules", ylab="time [s]", main="collision TI (sense transcript)")
+for(i in 1:length(dat_sense)){
+  points(rif_time:total_time,dat_sense[[i]][rif_time:total_time], type="l", col=i)
+}
+legend("topright", bty="n", legend=pos, text.col=1:length(pos))
+abline(v=rif_time)
+
+# visualization of the decay curves 
+plot(1,1,type="n", ylim=c(0,max(unlist(dat_anti))), xlim=c(rif_time, total_time), xlab="molecules", ylab="time [s]", main="collision TI (sense transcript)")
+for(i in 1:length(dat_anti)){
+  points(rif_time:total_time,dat_anti[[i]][rif_time:total_time], type="l", col=i)
+}
+legend("topright", bty="n", legend=pos, text.col=1:length(pos))
+abline(v=rif_time)
+```
