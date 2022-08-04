@@ -30,9 +30,9 @@ dat<-simulate(timesteps=total_time,
               rna_length=1000,
               mode_of_decay="co")
 ```
-<p float="left">
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="300"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="300"/>
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="500"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="500"/>
 </p>
 
 
