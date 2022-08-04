@@ -31,5 +31,5 @@ dat<-simulate(timesteps=total_time,
               mode_of_decay="co")
 ```
 <p align="center">
-  <img src="https://github.com/CyanolabFreiburg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.jpeg"/>
+  <img src="https://github.com/CyanolabFreiburg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png"/>
 </p>
