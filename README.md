@@ -293,4 +293,22 @@ abline(v=rif_time)
 
 
 #### Fitting of decay curves  
+First data that mimis the results of a typical RNAseq rifampicin timeseries are extracted from the simulation. The above pausing site simulation creates data for every 50nt in the transcript. Here, the data points for 0, 1, 2, 3, 4, 6, 8 and 10 min after the simulated rifampicin addition are extracted.
+
+```
+source("extract_datapoints.r")
+dat2<-extract_datapoints(dat, rif_time=rif_time,
+			timesteps=total_time,
+			time_points=c(0,1,2,3,4,6,8,10)*60,
+			reps=1
+			)
+```
+The extracted data are then fitted to the co-transcription decay model, to get the positional decay constant and delay.
+```
+require(nls2)
+source("co_trans_fit.r")
+```
+
+
+
 #### Segmentation of the delay coefficients
