@@ -1,6 +1,6 @@
 plot_segment<-function(segments){
   o<-segments
-  plot(o$position,o$delay,ylim=c(0, max(o$delay)),pch=19)
+  plot(o$position,o$delay,ylim=c(0, max(o$delay)),pch=19, xlab="position [nt]", ylab="delay [min]")
   segs<-unique(o$delay_fragment)
   oo<-grep("O",segs)
   if(length(oo)>0){
