@@ -307,8 +307,16 @@ The extracted data are then fitted to the co-transcription decay model, to get t
 ```
 require(nls2)
 source("co_trans_fit.r")
-```
+results<-fit(dat2)
 
+# visualization of positional delay
+plot(pos,results[,"delay"],xlab="position [nt]", ylab="delay [min]")
+text(1050,2,labels="pausing site", srt=90)
+
+```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/delay1.png" width="350"/>
+</p>
 
 
 #### Segmentation of the delay coefficients
