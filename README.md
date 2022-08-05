@@ -303,7 +303,7 @@ dat2<-extract_datapoints(dat, rif_time=rif_time,
 			reps=1
 			)
 ```
-The extracted data are then fitted to the co-transcription decay model, to get the positional decay constant and delay.
+The extracted data are then fitted to the co-transcription decay model, to get the positional decay constants and delays.
 ```
 require(nls2)
 source("co_trans_fit.r")
@@ -320,3 +320,8 @@ text(1050,2,labels="pausing site", srt=90)
 
 
 #### Segmentation of the delay coefficients
+Segments of a continous linear increase of the delay are fitted by a dynamic programming algorithm.
+
+
+
+
