@@ -321,8 +321,19 @@ text(1050,2,labels="pausing site", srt=90)
 
 
 #### Segmentation of the delay coefficients
-Segments of a continous linear increase of the delay are fitted by a dynamic programming algorithm.
+Segments of a continous linear increase of the delay are fitted by a dynamic programming algorithm. The penalties for a split(pen) and for excluding data points (pen_out) define the sensitivity and specitivity of the segmentation.
 
+```
+source("segmentation.r")
+source("plot_segment.r")
+probe<-data.frame(ID=1:nrow(results),delay=results[,2],position=results[,4],position_segment=paste0("S_",rep(1,nrow(results))),strand=rep("+",nrow(results)))
+segments<-fragment_delay (probe, pen=1.5,pen_out=1)
 
+# visualization of the segmentation
+plot_segment(probe)
+```
+For the example 2 segments and the pausing site are correctly identified. The fitted elongation rate is is close to the actual elongation rate.
 
-
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/delay2.png" width="350"/>
+</p>
