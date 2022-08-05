@@ -6,9 +6,10 @@
 #time_points: sample timepoints in seconds
 
 
+
 extract_datapoints<-function(probe_all, rif_time,timesteps, time_points=c(0,1,2,3,4,6,8,10,15,20)*60, reps=1){
+	data_new<-list()
 	if(reps==1){
-		data_new<-c()
 		for(j in 1:length(probe_all)){
 			temp<-probe_all[[j]]
 			temp<-temp[rif_time:timesteps]
@@ -16,11 +17,10 @@ extract_datapoints<-function(probe_all, rif_time,timesteps, time_points=c(0,1,2,
 			position<-rep(as.numeric(names(probe_all)[j]),length(tmp))
 			out<-cbind((time_points)/60,tmp, position)
 			colnames(out)<-c("time","inty","position")
-			data_new<-rbind(data_new,out)
+			data_new[[j]]<-as.data.frame(out)
 		}
-		data_new<-as.data.frame(data_new)
-	} else{
-		data_new<-list()
+
+	} else{		
 		for(i in 1:length(probe_all[[1]])){
 			Data5<-c()
 			for(j in 1:length(probe_all)){
