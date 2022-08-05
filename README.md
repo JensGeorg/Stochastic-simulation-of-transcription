@@ -205,3 +205,20 @@ for(i in 1:length(dat_sense)){
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/collision_ti_anti_short.png" width="350"/>
 </p>
 
+The positional RNA abundance drops after the start of the asRNA due to termination by transcriptional interference
+
+```
+dat_sense<-dat[[1]]
+dat_anti<-dat[[2]]
+plot(1,1,type="n", xlim=c(0,max(pos)), ylim=c(0, max(unlist(dat))), xlab="position [nt]",ylab="molecules", main="positional RNA abundance in steady state" )
+
+for(i in 1:length(dat_sense)){
+  points(as.numeric(names(dat_sense)[i]),dat_sense[[i]][rif_time], pch=19)
+  points(as.numeric(names(dat_anti)[i]),dat_anti[[i]][rif_time], pch=19, col=2)
+}
+legend("topright", bty="n", legend=c("sense","anti"), pch=c(19,19), col=c(1,2), text.col=c(1,2))
+
+```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/ti_positional_steady_state_abundance.png" width="350"/>
+ </p>
