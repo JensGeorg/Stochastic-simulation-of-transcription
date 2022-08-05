@@ -286,6 +286,10 @@ legend("topright", bty="n", legend=names(dat2), text.col=1:length(pos2))
 abline(v=rif_time)    
               
 ```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/pause_full.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/pause_short.png" width="350"/>
+</p>
 
 
 #### Fitting of decay curves  
