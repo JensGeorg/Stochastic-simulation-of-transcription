@@ -132,14 +132,15 @@ pos=c(1,seq(200,3000,500),seq(1900,1990,10)) #sample positions [nt]
 pol_speed=10 #[nt/s]
 rna_length=3000 #length of transcript [nt]
 
-rif_time=steady_state*10  # time when transcription initiation stops
-total_time=rif_time + 8 * log(2)/deg 
+rif_time=steady_state*5  # time when transcription initiation stops
+total_time=rif_time + 6 * log(2)/deg 
 
 dat<-simulate(timesteps=total_time,
               rif_time=rif_time,
               pol_freq=pol_freq,
               ti_anti_pol_freq=ti_anti_pol_freq,
               ti_anti_deg=ti_anti_deg,
+              ti_anti_tss=ti_anti_tss,
               deg=deg,
               ti_prob_sense=ti_prob_sense,
               start_pos=start_pos,
