@@ -54,6 +54,8 @@ for(i in 1:length(pos)){
   curve(pol_freq/deg * exp(-deg*(x-(pos[i]/pol_speed+rif_time))), from=pos[i]/pol_speed+rif_time , to= total_time, add=TRUE, col=i, lty=2)
 }
 ```
+The analytical solution regardind the co-transcriptional model is shown as broken line.
+
 <p float="center">
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="350"/>
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt_with_analyt.png" width="350"/>
