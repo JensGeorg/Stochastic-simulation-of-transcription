@@ -1,7 +1,6 @@
 # Stochastic simulation of transcription
 
-This R function simulates the bacterial RNA transcription and decay. It is predominantly designed to generate time series data after a stop of the transcription initiation, which resembles the effect of the antibiotic Rifampicin. Experimental Rifampicin time series data are widely used to study the RNA stability. 
-Various aspects of transcription can be investigated.
+This R function simulates the bacterial RNA transcription and decay. It is predominantly designed to generate time series data after a stop of the transcription initiation, which resembles the effect of the antibiotic Rifampicin. Experimental Rifampicin time series data are widely used to study the RNA stability. Some use cases and the respective visualizations are shown in the following. Due to the stochastic nature, the data and visualizations will change from run to run.
 
 ### Transcription and degradation of a 1000nt RNA (co-transcriptional decay)
 
@@ -34,7 +33,7 @@ The counted transcript numbers at the respective positions are stored in a list.
 
 ```
 # visualization of the synthesis and decay phase 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="molecules", ylab="time [s]", main="co-transcriptional decay")
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay")
 for(i in 1:length(dat)){
   points(1:total_time,dat[[i]], type="l", col=i)
 }
@@ -43,7 +42,7 @@ abline(v=rif_time)
 
 
 # visualization of the decay curves with analytical solution 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="molecules", ylab="time [s]", main="co-transcriptional decay")
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay")
 for(i in 1:length(dat)){
   points(rif_time:total_time,dat[[i]][rif_time:total_time], type="l", col=i)
 }
@@ -89,7 +88,7 @@ dat<-simulate(timesteps=total_time,
               mode_of_decay="post")
               
 # visualization of the synthesis and decay phase 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="molecules", ylab="time [s]", main="post-transcriptional decay")
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="post-transcriptional decay")
 for(i in 1:length(dat)){
   points(1:total_time,dat[[i]], type="l", col=i)
 }
@@ -98,7 +97,7 @@ abline(v=rif_time)
 
 
 # visualization of the decay curves with analytical solution 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="molecules", ylab="time [s]", main="post-transcriptional decay")
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="post-transcriptional decay")
 for(i in 1:length(dat)){
   points(rif_time:total_time,dat[[i]][rif_time:total_time], type="l", col=i)
 }
@@ -128,12 +127,13 @@ ti_anti_tss=2000
 ti_anti_deg=0.01 #[1/s]
 ti_prob_sense=0.29
 start_pos=1
+ti_rna_length=1000
 pos=c(1,seq(200,3000,500),seq(1900,1990,10)) #sample positions [nt]
 pol_speed=10 #[nt/s]
 rna_length=3000 #length of transcript [nt]
 
-rif_time=steady_state*5  # time when transcription initiation stops
-total_time=rif_time + 6 * log(2)/deg 
+rif_time=steady_state * 2   # time when transcription initiation stops
+total_time=rif_time + 10 * log(2)/deg 
 
 dat<-simulate(timesteps=total_time,
               rif_time=rif_time,
@@ -141,6 +141,7 @@ dat<-simulate(timesteps=total_time,
               ti_anti_pol_freq=ti_anti_pol_freq,
               ti_anti_deg=ti_anti_deg,
               ti_anti_tss=ti_anti_tss,
+              ti_rna_length=ti_rna_length,
               deg=deg,
               ti_prob_sense=ti_prob_sense,
               start_pos=start_pos,
@@ -150,22 +151,36 @@ dat<-simulate(timesteps=total_time,
               ti_anti_usage=TRUE,
               mode_of_decay="co")
 
-dat_sense<-dat[[1]]
-dat_anti<-dat[[2]]
+# visualization of the decay curves (after rifampicin addition)
+dat_sense<-dat[[1]][c(1,4,6,7,8)]
+dat_anti<-dat[[2]][c(17,16,15,14,13,12,11,10,9)]
 
-# visualization of the decay curves 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat_sense))), xlim=c(rif_time, total_time), xlab="molecules", ylab="time [s]", main="collision TI (sense transcript)")
+ti<-ti_anti_pol_freq*ti_prob_sense
+pos2<-as.numeric(names(dat_sense))
+
+plot(1,1,type="n", ylim=c(0,max(unlist(dat_sense))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="collision TI (sense transcript)")
 for(i in 1:length(dat_sense)){
   points(rif_time:total_time,dat_sense[[i]][rif_time:total_time], type="l", col=i)
 }
-legend("topright", bty="n", legend=pos, text.col=1:length(pos))
+legend("topright", bty="n", legend=names(dat_sense), text.col=1:length(pos2))
 abline(v=rif_time)
 
-# visualization of the decay curves 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat_anti))), xlim=c(rif_time, total_time), xlab="molecules", ylab="time [s]", main="collision TI (sense transcript)")
-for(i in 1:length(dat_anti)){
-  points(rif_time:total_time,dat_anti[[i]][rif_time:total_time], type="l", col=i)
+for(i in 1:length(dat_sense)){
+  if(pos2[i]>=ti_anti_tss){
+    curve((pol_freq/deg-ti/deg*x/x),from=0,to=(pos2[i]-ti_anti_tss)/pol_speed+rif_time, add=T,col=i,lty=2) 
+    curve(pol_freq/deg - ti/deg * exp(-deg*(x-(pos2[i]-ti_anti_tss)/pol_speed-rif_time)),from=(pos2[i]-ti_anti_tss)/pol_speed+rif_time,to=pos2[i]/pol_speed+rif_time, add=T, col=i,lty=2) 
+    curve( (pol_freq/deg  - ti/deg * exp(-deg*(ti_anti_tss/pol_speed)))*exp(-deg*(x-pos2[i]/pol_speed-rif_time)),from=pos2[i]/pol_speed+rif_time,to=total_time,lty=2, add=T, col=i)
+    
+  }
+
+  if(pos2[i]<ti_anti_tss){
+    curve(pol_freq/deg *x/x, from=0 , to= pos2[i]/pol_speed+rif_time, add=TRUE, col=i, lty=2)
+    curve(pol_freq/deg * exp(-deg*(x-(pos2[i]/pol_speed+rif_time))), from=pos2[i]/pol_speed+rif_time , to= total_time, add=TRUE, col=i, lty=2)
+  }
 }
-legend("topright", bty="n", legend=pos, text.col=1:length(pos))
-abline(v=rif_time)
 ```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans_with_analyt.png" width="350"/>
+</p>
+
