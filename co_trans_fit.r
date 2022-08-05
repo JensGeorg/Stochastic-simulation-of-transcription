@@ -23,7 +23,7 @@ fit<-function(data_new){
 		)
 		,error = function(e) {1+1}
 	  )
-	  if(is.na(tmp)==F){
+	  if(is.na(tmp[1])==F){
 		out_all<-rbind(out_all,coef(tmp))
 	  } else {
 		out_all<-rbind(out_all, rep(NA, 3))
