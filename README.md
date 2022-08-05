@@ -5,6 +5,9 @@ This R function simulates the bacterial RNA transcription and decay. It is predo
 - [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-(co-transcriptional-decay))
 - [Transcription and degradation of a 1000nt RNA (post-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-(post-transcriptional-decay))
 - [Transcriptional interference by the collision of sense and antisense transcription](#Transcriptional-interference-by-the-collision-of-sense-and-antisense-transcription)
+- [Simulation of a transcriptional pausing site](#Simulation-of-a-transcriptional-pausing-site)
+ -[Fitting of decay curves](#Fitting-of-decay-curves)  
+ -[Segmentation of the delay coefficients](#Segmentation-of-the-delay-coefficients)
 
 ### Transcription and degradation of a 1000nt RNA (co-transcriptional decay)
 
@@ -228,3 +231,7 @@ legend("topright", bty="n", legend=c("sense","anti"), pch=c(19,19), col=c(1,2), 
 <p float="center">
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/ti_positional_steady_state_abundance.png" width="350"/>
  </p>
+ 
+### Simulation of a transcriptional pausing site
+#### Fitting of decay curves  
+#### Segmentation of the delay coefficients
