@@ -287,8 +287,8 @@ abline(v=rif_time)
               
 ```
 <p float="center">
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/pause_full.png" width="350"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/pause_short.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/pausing_full.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/pausing_short.png" width="350"/>
 </p>
 
 
