@@ -308,9 +308,10 @@ The extracted data are then fitted to the co-transcription decay model, to get t
 require(nls2)
 source("co_trans_fit.r")
 results<-fit(dat2)
+results<-cbind(results, pos)
 
 # visualization of positional delay
-plot(pos,results[,"delay"],xlab="position [nt]", ylab="delay [min]")
+plot(results[,4],results[,"delay"],xlab="position [nt]", ylab="delay [min]", pch=19)
 text(1050,2,labels="pausing site", srt=90)
 
 ```
