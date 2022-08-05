@@ -54,6 +54,8 @@ for(i in 1:length(pos)){
   curve(pol_freq/deg * exp(-deg*(x-(pos[i]/pol_speed+rif_time))), from=pos[i]/pol_speed+rif_time , to= total_time, add=TRUE, col=i, lty=2)
 }
 ```
+The analytical solution regardind the co-transcriptional decay model is shown as broken line.
+
 <p float="center">
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="350"/>
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt_with_analyt.png" width="350"/>
@@ -151,6 +153,27 @@ dat<-simulate(timesteps=total_time,
               ti_anti_usage=TRUE,
               mode_of_decay="co")
 
+# visualization of the full synthesis and decay curves 
+plot(1,1,type="n", ylim=c(0,max(unlist(dat_sense))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="collision TI (sense transcript)")
+for(i in 1:length(dat_sense)){
+  points(1:total_time,dat_sense[[i]], type="l", col=i)
+}
+legend("topright", bty="n", legend=pos, text.col=1:length(pos))
+abline(v=rif_time)
+
+plot(1,1,type="n", ylim=c(0,max(unlist(dat_anti))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="collision TI (antisense transcript)")
+for(i in 1:length(dat_anti)){
+  points(1:total_time,dat_anti[[i]], type="l", col=i)
+}
+legend("topright", bty="n", legend=pos, text.col=1:length(pos))
+abline(v=rif_time)
+```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/collision_ti_sense_full.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/collision_ti_anti_full.png" width="350"/>
+</p>
+
+```
 # visualization of the decay curves (after rifampicin addition)
 dat_sense<-dat[[1]][c(1,4,6,7,8)]
 dat_anti<-dat[[2]][c(17,16,15,14,13,12,11,10,9)]
@@ -180,7 +203,24 @@ for(i in 1:length(dat_sense)){
 }
 ```
 <p float="center">
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans.png" width="350"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans_with_analyt.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/collision_sense_short.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/collision_ti_anti_short.png" width="350"/>
 </p>
 
+The positional RNA abundance drops after the start of the asRNA due to termination by transcriptional interference
+
+```
+dat_sense<-dat[[1]]
+dat_anti<-dat[[2]]
+plot(1,1,type="n", xlim=c(0,max(pos)), ylim=c(0, max(unlist(dat))), xlab="position [nt]",ylab="molecules", main="positional RNA abundance in steady state" )
+
+for(i in 1:length(dat_sense)){
+  points(as.numeric(names(dat_sense)[i]),dat_sense[[i]][rif_time], pch=19)
+  points(as.numeric(names(dat_anti)[i]),dat_anti[[i]][rif_time], pch=19, col=2)
+}
+legend("topright", bty="n", legend=c("sense","anti"), pch=c(19,19), col=c(1,2), text.col=c(1,2))
+
+```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/ti_positional_steady_state_abundance.png" width="350"/>
+ </p>
