@@ -321,7 +321,7 @@ text(1050,2,labels="pausing site", srt=90)
 
 
 #### Segmentation of the delay coefficients
-Segments of a continous linear increase of the delay are fitted by a dynamic programming algorithm. The penalties for a split(pen) and for excluding data points (pen_out) define the sensitivity and specitivity of the segmentation.
+Segments of a continous linear increase of the delay are fitted by a dynamic programming algorithm. The penalties for a split (pen) and for excluding data points (pen_out) define the sensitivity and specitivity of the segmentation.
 
 ```
 source("segmentation.r")
