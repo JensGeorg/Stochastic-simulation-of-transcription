@@ -362,18 +362,6 @@ for(i in 1:timesteps){
 		ti<-lapply(ti,ladd_ti, nt=ti_pol_speed) # extend existing RNA molecules by nt	
 	}
 	
-	# end of pause 
-	if(pausing_probability>0){
-		if(length(pause_list)>0){
-			random<-runif(n=length(pause_list),min=0,max=1)
-			ends<-which(random<=pausing_off_probability)
-			if(length(ends)>0){
-				rna<-c(rna,pause_list[ends])
-				pause_list<-pause_list[-ends]
-			}
-		}
-	}
-
 	
 	
 	# start of pause
@@ -391,6 +379,18 @@ for(i in 1:timesteps){
 		}
 	}				
 		
+	# end of pause 
+	if(pausing_probability>0){
+		if(length(pause_list)>0){
+			random<-runif(n=length(pause_list),min=0,max=1)
+			ends<-which(random<=pausing_off_probability)
+			if(length(ends)>0){
+				rna<-c(rna,pause_list[ends])
+				pause_list<-pause_list[-ends]
+			}
+		}
+	}
+
 	
 	# counting transcript numbers overlapping the probe/bin positions
 	for(j in 1:length(probe)){
