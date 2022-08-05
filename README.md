@@ -112,8 +112,8 @@ for(i in 1:length(pos)){
 }
 ```
 <p float="center">
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans.png" width="500"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans_with_analyt.png" width="500"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans_with_analyt.png" width="350"/>
 </p>
 
 ### Transcriptional interference by the collision of sense and antisense transcription
