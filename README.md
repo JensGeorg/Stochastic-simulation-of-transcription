@@ -57,8 +57,8 @@ for(i in 1:length(pos)){
 The analytical solution regardind the co-transcriptional decay model is shown as broken line.
 
 <p float="center">
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt.png" width="350"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_1000nt_with_analyt.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_full.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_short.png" width="350"/>
 </p>
 
 ### Transcription and degradation of a 1000nt RNA (post-transcriptional decay)
@@ -113,8 +113,8 @@ for(i in 1:length(pos)){
 }
 ```
 <p float="center">
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans.png" width="350"/>
-  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_trans_with_analyt.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_transcriptional_full.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/post_transcriptional_short.png" width="350"/>
 </p>
 
 ### Transcriptional interference by the collision of sense and antisense transcription
