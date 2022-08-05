@@ -332,7 +332,7 @@ segments<-fragment_delay (probe, pen=1.5,pen_out=1)
 # visualization of the segmentation
 plot_segment(probe)
 ```
-For the example 2 segments and the pausing site are correctly identified. The fitted elongation rate is is close to the actual elongation rate.
+Two segments and the pausing site are correctly identified in the example. The fitted elongation rate is is close to the actual elongation rate.
 
 <p float="center">
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/delay2.png" width="350"/>
