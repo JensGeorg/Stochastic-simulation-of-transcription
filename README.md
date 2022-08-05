@@ -233,5 +233,60 @@ legend("topright", bty="n", legend=c("sense","anti"), pch=c(19,19), col=c(1,2), 
  </p>
  
 ### Simulation of a transcriptional pausing site
+The transcription of a 2000nt transcript is simulated. At position 1000 is a pausing site with an off rate of 0.02 1/s (mean lifetime 50s).
+
+```
+source("simulate.r")
+pol_freq=0.6 #[initiations/s]
+deg=0.01 #[1/s]
+start_pos=1
+pos=seq(5,2000,50) #sample positions [nt]
+pol_speed=10 #[nt/s]
+rna_length=1000 #length of transcript [nt]
+
+steady_state=as.integer(log(0.005)/-deg - rna_length/pol_speed) #estimate when steady state is reached for the full-length transcript
+## rna_length/pol_speed = delay for the 3'end of the transcript
+
+rif_time=steady_state*1.5  # time when transcription initiation stops
+total_time=rif_time + 10 * log(2)/deg # the simualtion stops 6 half-life times after the stop of transcription initiation
+
+dat<-simulate(timesteps=total_time,
+              rif_time=rif_time,
+              pol_freq=pol_freq,
+              deg=deg,
+              start_pos=start_pos,
+              probe_pos=pos,
+              pol_speed=pol_speed,
+              rna_length=2000,
+              mode_of_decay="co",
+              
+              pausing_position = 1000,
+              pausing_probability = 1,
+					    pausing_off_probability = 0.02 
+              )
+              
+dat2<-dat[seq(1,40,5)]
+pos2<-as.numeric(names(dat2))
+# visualization of the synthesis and decay phase 
+plot(1,1,type="n", ylim=c(0,max(unlist(dat2))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay (with pausing site)")
+for(i in 1:length(dat2)){
+  points(1:total_time,dat2[[i]], type="l", col=i)
+}
+legend("topright", bty="n", legend=names(dat2), text.col=1:length(pos2))
+abline(v=rif_time)
+
+
+# visualization of the decay curves with analytical solution 
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay (with pausing site)")
+for(i in 1:length(dat2)){
+  points(rif_time:total_time,dat2[[i]][rif_time:total_time], type="l", col=i)
+}
+
+legend("topright", bty="n", legend=names(dat2), text.col=1:length(pos2))
+abline(v=rif_time)    
+              
+```
+
+
 #### Fitting of decay curves  
 #### Segmentation of the delay coefficients
