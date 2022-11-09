@@ -29,13 +29,13 @@
 
 #Transcriptional interference
 #ti_anti_tss: start of antisense transcription in nt distance from sense start
-#ti_anti_pol_freq: initiation rate(s) od asRNA(s)
+#ti_anti_pol_freq: initiation rate(s) of asRNA(s)
 #ti_anti_deg: degradation constant for the asRNA(s)
 #ti_prob_sense: probability of termination for the sense transcript upon collision with an asRNA RNAP. The asRNA termination probability is 1-ti_prob_sense
 #ti_range: Range in which RNAPs collide which each other [nt]
 #ti_anti_usage: switch for explixit numeric modelling of ti. If ti_anti_usage=TRUE, term_prob and term_length should not be used.
 
-simulate<-function(	timesteps=8000,
+simulate<-function(			timesteps=8000,
 					rif_time=4000,
 					start_pos=c(1,1500),
 					rna_length=2000,
