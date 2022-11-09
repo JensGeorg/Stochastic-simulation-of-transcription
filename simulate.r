@@ -314,21 +314,22 @@ for(i in 1:timesteps){
 		}
 	}
 
-
-	# initiation of antisense transcript
-	for(jj in 1:length(ti_anti_tss)){
-		pol_freq3<-ti_anti_pol_freq[jj]
-		repeats<-1
-		if(pol_freq3>1){
-			repeats<-as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
-			pol_freq3<-pol_freq3/as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
-		}
-		if(i<rif_time){
-			random<-runif(n=repeats,min=0,max=1)
-			le<-length(which(random<=pol_freq3))
-			if(le>0){
-				new_rna<-rep(list(ti_anti_tss[jj]),le)
-				ti<-c(ti,new_rna)
+	if(ti_anti_usage){
+		# initiation of antisense transcript
+		for(jj in 1:length(ti_anti_tss)){
+			pol_freq3<-ti_anti_pol_freq[jj]
+			repeats<-1
+			if(pol_freq3>1){
+				repeats<-as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
+				pol_freq3<-pol_freq3/as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
+			}
+			if(i<rif_time){
+				random<-runif(n=repeats,min=0,max=1)
+				le<-length(which(random<=pol_freq3))
+				if(le>0){
+					new_rna<-rep(list(ti_anti_tss[jj]),le)
+					ti<-c(ti,new_rna)
+				}
 			}
 		}
 	}
