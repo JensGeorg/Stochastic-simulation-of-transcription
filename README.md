@@ -160,6 +160,9 @@ dat<-simulate(timesteps=total_time,
               ti_anti_usage=TRUE,
               mode_of_decay="co")
 
+dat_sense<-dat[[1]]
+dat_anti<-dat[[2]]
+
 # visualization of the full synthesis and decay curves 
 plot(1,1,type="n", ylim=c(0,max(unlist(dat_sense))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="collision TI (sense transcript)")
 for(i in 1:length(dat_sense)){
