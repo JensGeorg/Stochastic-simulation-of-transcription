@@ -210,7 +210,7 @@ for(i in 1:timesteps){
 	
 	if(ti_anti_usage){
 		ti_rna_l<-unlist(lapply(ti,min))
-		ti_fulll<-which(ti_rna_l>=ti_rna_length)
+		ti_fulll<-which(ti_rna_l<=ti_rna_length)
 		if(length(ti_fulll)>0){
 			full_ti<-c(full_ti,ti[ti_fulll]) # fullength rnas were transfered from the growing rna list
 			ti<-ti[-ti_fulll]  				 # to the fullength list
@@ -229,7 +229,7 @@ for(i in 1:timesteps){
 	
 	if(ti_anti_usage){
 		random<-runif(n=length(ti),min=0,max=1)
-		terminated<-which(random>=random_term_prob)
+		terminated<-which(random<=random_term_prob)
 		if(length(terminated)>0){
 			full_ti<-c(full_ti,ti[terminated]) # pre-maturely terminated RNAs were transfered to the fullength list
 			ti<-ti[-terminated]
