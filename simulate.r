@@ -229,7 +229,7 @@ for(i in 1:timesteps){
 	
 	if(ti_anti_usage){
 		random<-runif(n=length(ti),min=0,max=1)
-		terminated<-which(random<=random_term_prob)
+		terminated<-which(random>=random_term_prob)
 		if(length(terminated)>0){
 			full_ti<-c(full_ti,ti[terminated]) # pre-maturely terminated RNAs were transfered to the fullength list
 			ti<-ti[-terminated]
