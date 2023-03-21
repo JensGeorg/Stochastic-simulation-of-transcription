@@ -296,7 +296,7 @@ abline(v=rif_time)
 
 
 #### Fitting of decay curves  
-First data that mimis the results of a typical RNAseq rifampicin timeseries are extracted from the simulation. The above pausing site simulation creates data for every 50nt in the transcript. Here, the data points for 0, 1, 2, 3, 4, 6, 8 and 10 min after the simulated rifampicin addition are extracted.
+First data that mimic the results of a typical RNAseq rifampicin timeseries are extracted from the simulation. The above pausing site simulation creates data for every 50nt in the transcript. Here, the data points for 0, 1, 2, 3, 4, 6, 8 and 10 min after the simulated rifampicin addition are extracted.
 
 ```
 source("extract_datapoints.r")
