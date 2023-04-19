@@ -32,7 +32,9 @@
 #end_of_termination_time: Timepoint were the the termination at term_length stops. Assuming a termination by another RNA polymerase, i.e. transcriptional interference, end_of_termination_time ~ rif_time.
 #random_term_prob: Constant probability at each timestep for termination
 #probe_pos: Positions in the transcript were the RNA number is stored for each timestep
-#mode_of_decay: Switch between "Co-transcriptional degradation" (co) and "Post-transcriptional degradation" (post).
+#mode_of_decay: Switch between: "Co-transcriptional degradation" (co)
+#				"Post-transcriptional degradation"  (post)
+#				 or endonucleolytic cuts at defined positions (decay_positions vector) followed by a rapid 3' exo decay (endo_exo)
 
 #pol_speed2: arguments for positional polymerase elongation rate change
 #pol_speed2_position: arguments for positional polymerase elongation rate change
@@ -67,6 +69,9 @@ simulate<-function(	timesteps=8000,
 					mode_of_decay="co",
 					pol_speed2 = NA,
 					pol_speed2_position = rna_length,
+		   			
+		   			# endo exo mode of decay
+					decay_positions=0,  
 					
 					# pausing sites
 					pausing_position = 500,
@@ -148,6 +153,32 @@ for(i in 1:timesteps){
 	if(i>deg_change_time){
 			deg<-deg2
 	}
+	if(mode_of_decay=="endo_exo"){
+		if(length(fulllength_rna)>0){
+			random<-runif(n=length(fulllength_rna),min=0,max=1)
+			random<-which(random<=deg)
+			if(length(random)>0){
+				 fulllength_rna<-fulllength_rna[-random]
+			 }
+		}
+		if(length(rna)>0){
+			tmp<-unlist(lapply(rna, function(x){
+					tmp<-length(which(is.element(decay_positions, x)))
+					return(tmp)
+				}))
+			tmp<-which(tmp>0)	
+		
+			random<-runif(n=length(tmp),min=0,max=1)
+			random<-which(random<=deg)
+			if(length(random)>0){
+				for(j in 1:length(random)){
+					rna[[tmp[random[j]]]]<-decay_fun(rna[[tmp[random[j]]]])
+				}
+			}
+		}	
+	}
+	
+	
 	if(mode_of_decay=="co"){
 		if(length(fulllength_rna)>0){
 			random<-runif(n=length(fulllength_rna),min=0,max=1)
