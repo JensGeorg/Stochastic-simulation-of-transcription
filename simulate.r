@@ -143,6 +143,14 @@ decay_fun<-function(x){
 	x
 }
 
+decay_fun_endo_exo<-function(x){
+	if(length(x)>0){
+		tmp<-na.omit(match(decay_positions, x))
+		tmp<-tmp[length(tmp)]
+		x<-x[tmp:length(x)]
+	}
+	x
+}
 
 out<-c()
 decay_rnas<-list()
@@ -172,7 +180,7 @@ for(i in 1:timesteps){
 			random<-which(random<=deg)
 			if(length(random)>0){
 				for(j in 1:length(random)){
-					rna[[tmp[random[j]]]]<-decay_fun(rna[[tmp[random[j]]]])
+					rna[[tmp[random[j]]]]<-decay_fun_endo_exo(rna[[tmp[random[j]]]])
 				}
 			}
 		}	
