@@ -35,7 +35,7 @@
 #mode_of_decay: Switch between: "Co-transcriptional degradation" (co)
 #				"Post-transcriptional degradation"  (post)
 #				 or endonucleolytic cuts at defined positions (decay_positions vector) followed by a rapid 3' exo decay (endo_exo)
-
+#decay_positions: Vector of positions for endonucleolytic cuts for endo_exo decay mode
 #pol_speed2: arguments for positional polymerase elongation rate change
 #pol_speed2_position: arguments for positional polymerase elongation rate change
 
