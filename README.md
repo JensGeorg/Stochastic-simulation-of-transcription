@@ -4,7 +4,7 @@ This R function simulates the bacterial RNA transcription and decay. It is predo
 
 - [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-exo-case)
   - Decay by 5' exoribonuclease 
-- [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-endo-exo-case)
+- [Transcription and degradation of a 2000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-endo-exo-case)
   - Decay by combined action of endoribonucleases and 3' exoribonucleases.
 - [Transcription and degradation of a 1000nt RNA (post-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-post-transcriptional-decay)
 - [Transcriptional interference by the collision of sense and antisense transcription](#Transcriptional-interference-by-the-collision-of-sense-and-antisense-transcription)
