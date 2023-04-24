@@ -1,6 +1,3 @@
-
-
-
 # Script to simulate transcription and RNA degradation
 # The script simulates the results from a transcriptomics experiment (Microarray or RNA-seq) for single transcripts
 # The script mimics the actual cellular processes in a non-model based way
@@ -157,6 +154,132 @@ decay_rnas<-list()
 fulllength_rna<-list()
 fulllength_age<-list()
 for(i in 1:timesteps){
+
+	# Inititation of transcription
+	for(jj in 1:length(start_pos)){
+		pol_freq3<-pol_freq[jj]
+		
+		speed_change_test<-which(ini_rate_change_time<i)
+		if(length(speed_change_test)>0){
+
+			pos_change<-speed_change_test[length(speed_change_test)]
+			pol_freq3<-pol_freq2[[pos_change]][jj]
+		
+		}
+		repeats<-1
+		if(pol_freq3>1){
+			repeats<-as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
+			pol_freq3<-pol_freq3/as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
+		}
+		if(i<rif_time){
+				random<-runif(n=repeats,min=0,max=1)
+				le<-length(which(random<=pol_freq3))
+				if(le>0){
+					new_rna<-rep(list(start_pos[jj]),le)
+					new_age<-rep(1,le)
+					rna<-c(rna,new_rna)
+					age<-c(age, new_age)
+				}
+		}
+	}
+
+	if(ti_anti_usage){
+		# initiation of antisense transcript
+		for(jj in 1:length(ti_anti_tss)){
+			pol_freq3<-ti_anti_pol_freq[jj]
+			repeats<-1
+			if(pol_freq3>1){
+				repeats<-as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
+				pol_freq3<-pol_freq3/as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
+			}
+			if(i<rif_time){
+					random<-runif(n=repeats,min=0,max=1)
+					le<-length(which(random<=pol_freq3))
+					if(le>0){
+						new_rna<-rep(list(ti_anti_tss[jj]),le)
+						ti<-c(ti,new_rna)
+					}
+			}
+		}
+	}
+	# update pause time & end of pause 
+	if(pausing_probability>0){
+		if(length(pause_list)>0){
+				
+			random<-runif(n=length(pause_list),min=0,max=1)
+			ends<-which(random<=pausing_off_probability)
+			if(length(ends)>0){
+				rna<-c(rna,pause_list[ends])
+				age<-c(age,pause_age[ends])
+				pause_time<-pause_time[-ends]
+				pause_age<-pause_age[-ends]
+				pause_list<-pause_list[-ends]
+			}
+		}
+	}
+
+
+	# transcription elongation
+	
+	if(is.na(pol_speed2)){
+		rna<-lapply(rna,ladd, nt=pol_speed) # extend existing RNA molecules by nt
+	
+	} else {
+		rna_l<-unlist(lapply(rna,max))
+		tmp<-which(rna_l>=pol_speed2_position)
+		if(length(tmp)>0){
+			if(length(tmp)<length(rna)){
+				tmp2<-setdiff(1:length(rna),tmp)
+				rna1<-lapply(rna[tmp],ladd, nt=pol_speed2)
+				rna2<-lapply(rna[tmp2],ladd, nt=pol_speed)
+				rna[tmp]<-rna1
+				rna[tmp2]<-rna2
+				
+			} else {
+				rna<-lapply(rna,ladd, nt=pol_speed2)
+			}
+
+		} else {
+			rna<-lapply(rna,ladd, nt=pol_speed) # extend existing RNA molecules by nt
+		}
+	}
+	
+	if(pausing_probability>0){
+		if(length(pause_age)>0){
+			pause_age<-pause_age+1
+		}
+	}
+	age<-age+1 # time since start of synthesis increases by 1	
+	fulllength_age<-lapply(fulllength_age, function(x){x+1})
+	
+	
+	if(ti_anti_usage){ # antisense transcript can only have an unchanged elongation rate
+		ti<-lapply(ti,ladd_ti, nt=ti_pol_speed) # extend existing RNA molecules by nt	
+	}
+	
+
+	
+	
+	# start of pause
+	if(pausing_probability>0){
+		rna_l<-unlist(lapply(rna,max))
+		paused<-which(rna_l>pausing_position-pol_speed/2 & rna_l<pausing_position+pol_speed/2) # transcript in range of pausing site
+		if(length(paused)>0){
+			random<-runif(n=length(paused),min=0,max=1)
+			random<-which(random<=pausing_probability)
+			if(length(random)>0){
+				pause_list<-c(pause_list,rna[paused[random]])
+				pause_time<-c(pause_time, rep(0,length(random)))
+				pause_age<-c(pause_age,age[paused[random]])
+				age<-age[-paused[random]]
+				rna<-rna[-paused[random]]
+			}	
+		}
+	}	
+	
+		
+	
+	
 	# degradation
 	if(i>deg_change_time){
 			deg<-deg2
@@ -362,132 +485,10 @@ for(i in 1:timesteps){
 			}			
 		}		
 	}
+
 	
-	
-	# Inititation of transcription
-	for(jj in 1:length(start_pos)){
-		pol_freq3<-pol_freq[jj]
 		
-		speed_change_test<-which(ini_rate_change_time<i)
-		if(length(speed_change_test)>0){
 
-			pos_change<-speed_change_test[length(speed_change_test)]
-			pol_freq3<-pol_freq2[[pos_change]][jj]
-		
-		}
-		repeats<-1
-		if(pol_freq3>1){
-			repeats<-as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
-			pol_freq3<-pol_freq3/as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
-		}
-		if(i<rif_time){
-				random<-runif(n=repeats,min=0,max=1)
-				le<-length(which(random<=pol_freq3))
-				if(le>0){
-					new_rna<-rep(list(start_pos[jj]),le)
-					new_age<-rep(1,le)
-					rna<-c(rna,new_rna)
-					age<-c(age, new_age)
-				}
-		}
-	}
-
-	if(ti_anti_usage){
-		# initiation of antisense transcript
-		for(jj in 1:length(ti_anti_tss)){
-			pol_freq3<-ti_anti_pol_freq[jj]
-			repeats<-1
-			if(pol_freq3>1){
-				repeats<-as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
-				pol_freq3<-pol_freq3/as.numeric(paste(c(1,rep(0, nchar(as.integer(pol_freq3)))), collapse=""))
-			}
-			if(i<rif_time){
-					random<-runif(n=repeats,min=0,max=1)
-					le<-length(which(random<=pol_freq3))
-					if(le>0){
-						new_rna<-rep(list(ti_anti_tss[jj]),le)
-						ti<-c(ti,new_rna)
-					}
-			}
-		}
-	}
-
-
-	
-	# transcription elongation
-	
-	if(is.na(pol_speed2)){
-		rna<-lapply(rna,ladd, nt=pol_speed) # extend existing RNA molecules by nt
-	
-	} else {
-		rna_l<-unlist(lapply(rna,max))
-		tmp<-which(rna_l>=pol_speed2_position)
-		if(length(tmp)>0){
-			if(length(tmp)<length(rna)){
-				tmp2<-setdiff(1:length(rna),tmp)
-				rna1<-lapply(rna[tmp],ladd, nt=pol_speed2)
-				rna2<-lapply(rna[tmp2],ladd, nt=pol_speed)
-				rna[tmp]<-rna1
-				rna[tmp2]<-rna2
-				
-			} else {
-				rna<-lapply(rna,ladd, nt=pol_speed2)
-			}
-
-		} else {
-			rna<-lapply(rna,ladd, nt=pol_speed) # extend existing RNA molecules by nt
-		}
-	}
-	
-	if(pausing_probability>0){
-		if(length(pause_age)>0){
-			pause_age<-pause_age+1
-		}
-	}
-	age<-age+1 # time since start of synthesis increases by 1	
-	fulllength_age<-lapply(fulllength_age, function(x){x+1})
-	
-	
-	if(ti_anti_usage){ # antisense transcript can only have an unchanged elongation rate
-		ti<-lapply(ti,ladd_ti, nt=ti_pol_speed) # extend existing RNA molecules by nt	
-	}
-	
-
-	
-	# update pause time & end of pause 
-	if(pausing_probability>0){
-		if(length(pause_list)>0){
-			random<-runif(n=length(pause_list),min=0,max=1)
-			ends<-which(random<=pausing_off_probability)
-			if(length(ends)>0){
-				rna<-c(rna,pause_list[ends])
-				age<-c(age,pause_age[ends])
-				pause_time<-pause_time[-ends]
-				pause_age<-pause_age[-ends]
-				pause_list<-pause_list[-ends]
-			}
-		}
-	}
-
-	
-	
-	# start of pause
-	if(pausing_probability>0){
-		rna_l<-unlist(lapply(rna,max))
-		paused<-which(rna_l>pausing_position-pol_speed/2 & rna_l<pausing_position+pol_speed/2) # transcript in range of pausing site
-		if(length(paused)>0){
-			random<-runif(n=length(paused),min=0,max=1)
-			random<-which(random<=pausing_probability)
-			if(length(random)>0){
-				pause_list<-c(pause_list,rna[paused[random]])
-				pause_time<-c(pause_time, rep(0,length(random)))
-				pause_age<-c(pause_age,age[paused[random]])
-				age<-age[-paused[random]]
-				rna<-rna[-paused[random]]
-			}	
-		}
-	}				
-		
 					
 	
 	# counting transcript numbers overlapping the probe/bin positions
