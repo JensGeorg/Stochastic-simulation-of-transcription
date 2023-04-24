@@ -72,6 +72,7 @@ The analytical solution regardind the co-transcriptional decay model is shown as
 </p>
 
 ### Transcription and degradation of a 1000nt RNA (co-transcriptional decay endo exo case)
+in this scenario a 2000nt transcript contains 3 sites for an endonucleolytic cut by e.g. RNase E. The RNAs with free 3' ends are then rapidly decayed by 3' exoribonucleases. 
 
 ```
 source("simulate.r")
@@ -95,14 +96,15 @@ dat<-simulate(timesteps=total_time,
               start_pos=start_pos,
               probe_pos=pos,
               pol_speed=pol_speed,
-              rna_length=1000,
-              mode_of_decay="co")
+              rna_length=2000,
+	      decay_positions=c(500,1000,1500),
+              mode_of_decay="endo_exo")
 ```
 The counted transcript numbers at the respective positions are stored in a list. Each list entry corresponds to a position and contains a vector with the transcript numbers at each timestep. These data can be used to draw simulated synthesis/decay curves.
 
 ```
 # visualization of the synthesis and decay phase 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay")
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay endo/exo")
 for(i in 1:length(dat)){
   points(1:total_time,dat[[i]], type="l", col=i)
 }
@@ -111,7 +113,7 @@ abline(v=rif_time)
 
 
 # visualization of the decay curves with analytical solution 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay")
+plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay endo/exo")
 for(i in 1:length(dat)){
   points(rif_time:total_time,dat[[i]][rif_time:total_time], type="l", col=i)
 }
