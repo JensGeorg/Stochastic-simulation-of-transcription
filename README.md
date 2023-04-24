@@ -79,7 +79,7 @@ source("simulate.r")
 pol_freq=0.6 #[initiations/s]
 deg=0.01 #[1/s]
 start_pos=1
-pos=c(1,seq(200,1000,200)) #sample positions [nt]
+pos=c(1,seq(200,2000,200)) #sample positions [nt]
 pol_speed=10 #[nt/s]
 rna_length=2000 #length of transcript [nt]
 
