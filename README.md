@@ -97,22 +97,14 @@ dat<-simulate(timesteps=total_time,
               probe_pos=pos,
               pol_speed=pol_speed,
               rna_length=rna_length,
-	      decay_positions=c(500,1000,1500),
+	      decay_positions=c(100,500,1000,1500),
               mode_of_decay="endo_exo")
 ```
 The counted transcript numbers at the respective positions are stored in a list. Each list entry corresponds to a position and contains a vector with the transcript numbers at each timestep. These data can be used to draw simulated synthesis/decay curves.
 
 ```
-# visualization of the synthesis and decay phase 
-plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(0, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay endo/exo")
-for(i in 1:length(dat)){
-  points(1:total_time,dat[[i]], type="l", col=i)
-}
-legend("topright", bty="n", legend=pos, text.col=1:length(pos))
-abline(v=rif_time)
 
-
-# visualization of the decay curves with analytical solution 
+# visualization of the decay curves 
 plot(1,1,type="n", ylim=c(0,max(unlist(dat))), xlim=c(rif_time, total_time), xlab="time [s]", ylab="molecules", main="co-transcriptional decay endo/exo")
 for(i in 1:length(dat)){
   points(rif_time:total_time,dat[[i]][rif_time:total_time], type="l", col=i)
@@ -120,13 +112,18 @@ for(i in 1:length(dat)){
 legend("topright", bty="n", legend=pos, text.col=1:length(pos))
 abline(v=rif_time)
 
-for(i in 1:length(pos)){
-  curve(pol_freq/deg *x/x, from=0 , to= pos[i]/pol_speed+rif_time, add=TRUE, col=i, lty=2)
-  curve(pol_freq/deg * exp(-deg*(x-(pos[i]/pol_speed+rif_time))), from=pos[i]/pol_speed+rif_time , to= total_time, add=TRUE, col=i, lty=2)
-}
-```
-The analytical solution regardind the co-transcriptional decay model is shown as broken line.
+# visualization of positional RNA abundances in the steady state
 
+ plot(1,1,type="n", xlim=c(0,max(pos)), ylim=c(0,110), xlab="position [nt]",ylab="molecules", main="co-transcriptional decay endo/exo")
+ for(i in 1:length(dat_sense)){
+    points(as.numeric(names(dat)[i]),dat[[i]][rif_time], pch=19)
+ }
+
+```
+<p float="center">
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_2000nt_endo_exo.png" width="350"/>
+  <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_2000nt_endo_exo_positional.png" width="350"/>
+</p>
 
 ### Transcription and degradation of a 1000nt RNA (post-transcriptional decay)
 The script can be also used to simulate the hypothetical post-transcriptional decay
