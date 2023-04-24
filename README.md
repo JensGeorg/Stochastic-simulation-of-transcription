@@ -2,15 +2,15 @@
 
 This R function simulates the bacterial RNA transcription and decay. It is predominantly designed to generate time series data after a stop of the transcription initiation, which resembles the effect of the antibiotic Rifampicin. Experimental Rifampicin time series data are widely used to study the RNA stability. Some use cases and the respective visualizations are shown in the following. Due to the stochastic nature, the data and visualizations will change from run to run.
 
-- [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-by-5-exoribonucleases)
-- [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-by-endo--and-3-exoribonucleases)
+- [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-case-1)
+- [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-case-2)
 - [Transcription and degradation of a 1000nt RNA (post-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-post-transcriptional-decay)
 - [Transcriptional interference by the collision of sense and antisense transcription](#Transcriptional-interference-by-the-collision-of-sense-and-antisense-transcription)
 - [Simulation of a transcriptional pausing site](#Simulation-of-a-transcriptional-pausing-site)
   - [Fitting of decay curves](#Fitting-of-decay-curves)  
   - [Segmentation of the delay coefficients](#Segmentation-of-the-delay-coefficients)
 
-### Transcription and degradation of a 1000nt RNA (co-transcriptional decay by 5' exoribonucleases)
+### Transcription and degradation of a 1000nt RNA (co-transcriptional decay case 1)
 
 ```
 source("simulate.r")
@@ -69,7 +69,7 @@ The analytical solution regardind the co-transcriptional decay model is shown as
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_short.png" width="350"/>
 </p>
 
-### Transcription and degradation of a 1000nt RNA (co-transcriptional decay by endo -and 3'exoribonucleases)
+### Transcription and degradation of a 1000nt RNA (co-transcriptional decay case 2)
 
 ```
 source("simulate.r")
