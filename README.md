@@ -3,7 +3,7 @@
 This R function simulates the bacterial RNA transcription and decay. It is predominantly designed to generate time series data after a stop of the transcription initiation, which resembles the effect of the antibiotic Rifampicin. Experimental Rifampicin time series data are widely used to study the RNA stability. Some use cases and the respective visualizations are shown in the following. Due to the stochastic nature, the data and visualizations will change from run to run.
 
 - [Transcription and degradation of a 1000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-exo-case)
-  - Decay by 5' exoribonuclease 
+  - Decay by 5' exoribonucleases 
 - [Transcription and degradation of a 2000nt RNA (co-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-co-transcriptional-decay-endo-exo-case)
   - Decay by combined action of endoribonucleases and 3' exoribonucleases.
 - [Transcription and degradation of a 1000nt RNA (post-transcriptional decay)](#Transcription-and-degradation-of-a-1000nt-RNA-post-transcriptional-decay)
