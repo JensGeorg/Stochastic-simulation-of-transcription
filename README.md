@@ -115,7 +115,7 @@ abline(v=rif_time)
 # visualization of positional RNA abundances in the steady state
 
  plot(1,1,type="n", xlim=c(0,max(pos)), ylim=c(0,110), xlab="position [nt]",ylab="molecules", main="co-transcriptional decay endo/exo")
- for(i in 1:length(dat_sense)){
+ for(i in 1:length(dat)){
     points(as.numeric(names(dat)[i]),dat[[i]][rif_time], pch=19)
  }
 
