@@ -71,7 +71,7 @@ The analytical solution regardind the co-transcriptional decay model is shown as
   <img src="https://github.com/JensGeorg/Stochastic-simulation-of-transcription/blob/main/simulate_figs/co_transcriptional_short.png" width="350"/>
 </p>
 
-### Transcription and degradation of a 1000nt RNA (co-transcriptional decay endo exo case)
+### Transcription and degradation of a 2000nt RNA (co-transcriptional decay endo exo case)
 In this scenario a 2000nt transcript contains 4 sites for an endonucleolytic cut by e.g. RNase E. The RNAs with free 3' ends are then rapidly decayed by 3' exoribonucleases. 
 
 ```
